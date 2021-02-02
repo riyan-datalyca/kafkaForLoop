@@ -11,6 +11,8 @@ kc = KafkaConsumer(
     value_deserializer=lambda m: json.loads(m.decode('ascii'))
 )
 
-for msg in kc:
-    time.sleep(1)
-    print(msg.value)
+
+print(time.perf_counter_ns())
+# for msg in kc:
+#     time.sleep(1)
+#     print(msg.value)
