@@ -1,29 +1,28 @@
-from kafka import KafkaConsumer
+from kafka import KafkaConsumer, TopicPartition
 import json
 import time
-from arrayClass import Col
-import arrayClass2
+# import maindictarray
 
-c = Col()
+topic = 'TestForLoop'
 kc = KafkaConsumer(
-    'TestForLoop',
-    group_id='my-group2',
+    group_id='my-group0',
     bootstrap_servers=['localhost:9092'],
     auto_offset_reset='earliest',
     enable_auto_commit=False,
     value_deserializer=lambda m: json.loads(m.decode('ascii'))
 )
-
+tp = TopicPartition(topic=topic, partition=0)
+kc.assign([tp])
 
 for msg in kc:
-    # time.sleep(1)
     print(msg.value)
-    # c.add_data({msg.value['msg']: msg.value['seq']})
-    if arrayClass2.is_active_rec():
-        print(time.perf_counter_ns(),"recording is in progress")
-
-    if arrayClass2.is_active_inf():
-        print(time.perf_counter_ns(),"inference is active")
-
-    if msg.value['msg'] == 'EndInf':
-        arrayClass2.seq += 1
+    # if msg.value['msg'] == 'EndRec':
+    #     # maindictarray.RefreshList()
+    #     maindictarray.incrementMaxSeq(msg.value['msg'])
+    #     print(maindictarray.getSeq())
+    #
+    # if maindictarray.isActiveRecording():
+    #     print(time.perf_counter_ns(),"recording is in progress")
+    #
+    # if maindictarray.isActiveInference():
+    #     print(time.perf_counter_ns(),"inference is active")

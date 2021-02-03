@@ -14,6 +14,10 @@ seq = 1
 tp = TopicPartition(topic, 0)
 kc.assign([tp])
 
+# def update_list():
+#     for msg in kc:
+#
+
 
 def get_seq():
     if kc.seek_to_end(tp) is None:
@@ -55,3 +59,6 @@ def is_active_inf():
         else:
             # print("for loop giving error")
             break
+
+
+

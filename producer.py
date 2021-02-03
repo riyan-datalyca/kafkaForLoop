@@ -1,7 +1,7 @@
 from kafka import KafkaProducer
 import json
 import time
-import arrayClass2 as a2
+import maindictarray as m
 
 kp = KafkaProducer(bootstrap_servers=['localhost:9092'],
                    value_serializer=lambda m: json.dumps(m)
@@ -17,7 +17,7 @@ while True:
                            {'top': "topic",
                          'msg': "BegRec",
                          'tim': 1,
-                         'seq': a2.get_seq()
+                         'seq': m.getSeq()
                          }
                         ).get(timeout=1)
             print(sent.offset, sent.partition)
@@ -26,7 +26,7 @@ while True:
                            {'top': "topic",
                             'msg': "EndRec",
                             'tim': 1,
-                            'seq': a2.get_seq()
+                            'seq': m.getMaxSeq('BegRec')
                             }
                            ).get(timeout=1)
             print(sent.offset, sent.partition)
@@ -35,80 +35,12 @@ while True:
     except Exception as e:
         print(e)
 
-# sent = kp.send('TestForLoop',
-#             {'top': "topic",
-#              'msg': "IniRec",
-#              'tim': 1,
-#              'seq': 1
-#              }
-#             ).get(timeout=1)
-# print(sent.offset, sent.partition)
-#
-# time.sleep(1)
-#
-# sent = kp.send('TestForLoop',
-#             {'top': "topic",
-#              'msg': "BegRec",
-#              'tim': 1,
-#              'seq': 1
-#              }
-#             ).get(timeout=1)
-# print(sent.offset, sent.partition)
-#
-# time.sleep(1)
-#
-# sent = kp.send('TestForLoop',
-#             {'top': "topic",
-#              'msg': "EndRec",
-#              'tim': 1,
-#              'seq': 1
-#              }
-#             ).get(timeout=1)
-# print(sent.offset, sent.partition)
-#
-# time.sleep(1)
-#
-# sent = kp.send('TestForLoop',
-#             {'top': "topic",
-#              'msg': "IniInf",
-#              'tim': 1,
-#              'seq': 1
-#              }
-#             ).get(timeout=1)
-# print(sent.offset, sent.partition)
-#
-# time.sleep(1)
-#
-# sent = kp.send('TestForLoop',
-#             {'top': "topic",
-#              'msg': "BegInf",
-#              'tim': 1,
-#              'seq': 1
-#              }
-#             ).get(timeout=1)
-# print(sent.offset, sent.partition)
-#
-# time.sleep(1)
-#
-# sent = kp.send('TestForLoop',
-#             {'top': "topic",
-#              'msg': "BegRec",
-#              'tim': 1,
-#              'seq': 2
-#              }
-#             ).get(timeout=1)
-# print(sent.offset, sent.partition)
-#
-# time.sleep(1)
-#
+class KafkaProd:
 
-# for i in range(0, 100):
-#     time.sleep(1)
-#     sent = kp.send('TestForLoop',
-#             {'top': "topic",
-#              'msg': "IniRec",
-#              'tim': i,
-#              'seq': 0
-#              }
-#             ).get(timeout=1)
-#     print(sent.offset, sent.partition)
+    def __init__(self, topic, json):
+        self.topic = topic
+        self.json = json
+        if json.get('seq') == 0:
+            print("got seq as 0")
+            self.json.update({'seq': 1})
+            print(self.json)

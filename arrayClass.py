@@ -8,6 +8,7 @@ class Col:
         pass
 
     def add_data(self, json):
+        # Col.dicts.update({'InitRec':0})
         pass
         # Col.dicts.
         # Col.lists.append(data)
