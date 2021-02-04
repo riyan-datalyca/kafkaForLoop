@@ -3,7 +3,7 @@ import threading
 
 from kafka import KafkaConsumer
 
-from dict_array import Data
+from dataObject import Data
 
 myList = []
 topic = 'TestForLoop'
