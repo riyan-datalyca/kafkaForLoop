@@ -2,7 +2,7 @@ import json
 
 from kafka import KafkaProducer
 
-import listUpdates as m
+import listUpdates as LU
 
 kp = KafkaProducer(bootstrap_servers=['localhost:9092'],
                    value_serializer=lambda m: json.dumps(m)
@@ -11,11 +11,11 @@ kp = KafkaProducer(bootstrap_servers=['localhost:9092'],
 
 while True:
     try:
-        seq = m.getMaxSeq('IniRec')
+        seq = LU.getMaxSeq('IniRec')
         x = input("1: start Rec \t 2: Stop Rec \t 0 : stop")
 
         if x == '1':
-            r = m.isActiveRecording(seq)
+            r = LU.isActiveRecording(seq)
             if r:
                 print(f"currently in recording . Pls Stop recording ")
             else:
