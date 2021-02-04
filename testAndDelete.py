@@ -16,13 +16,17 @@ def thread1(threadname):
         group_id='my-group1',
         bootstrap_servers=['localhost:9092'],
         auto_offset_reset='earliest',
-        enable_auto_commit=True,
+        enable_auto_commit=False,
+        # request_timeout_ms=5000,
+        # session_timeout_ms=4999,
+        consumer_timeout_ms=5000,
         value_deserializer=lambda m: json.loads(m.decode('ascii'))
     )
     for msg in kc:
         # print(msg.offset)
         list.append(Data(msg.value['seq'], msg.value['msg']))
         # updateList(myList2)
+    print("exited for loop")
 
 def thread2(threadname):
     global list
@@ -30,7 +34,7 @@ def thread2(threadname):
         for i in list:
             print(i.seq, i.status)
     else:
-        print("error")
+        print(list)
     # for k in range(100):
     #     print(len(list))
     #     time.sleep(1)
