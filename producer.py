@@ -2,7 +2,7 @@ import json
 
 from kafka import KafkaProducer
 
-import maindictarray as m
+import listUpdates as m
 
 kp = KafkaProducer(bootstrap_servers=['localhost:9092'],
                    value_serializer=lambda m: json.dumps(m)
