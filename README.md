@@ -26,6 +26,11 @@ or stopped.
 - Creating and updating timestamp in queue data and filtering form timestamp values.
 - ~~Incrementing Sequence numbers if EndRec is received.~~
 
+### Prerequisites 
 
+- Python 3.9.1
+- kafka-python==2.0.2
+- pip==21.0
+- setuptools==52.0.0
 
 ### This contains important data, try to keep multiple backups of this moduel.
