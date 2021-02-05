@@ -11,7 +11,7 @@ kp = KafkaProducer(bootstrap_servers=['localhost:9092'],
 
 while True:
     try:
-        seq = LU.getMaxSeq('IniRec')
+        seq = LU.getMaxSeq('EndRec')
         x = input("1: start Rec \t 2: Stop Rec \t 0 : stop")
 
         if x == '1':
@@ -21,9 +21,9 @@ while True:
             else:
                 sent = kp.send('TestForLoop',
                                {'top': "topic",
-                                'msg': "BegRec",
+                                'msg': "IniRec",
                                 'tim': 1,
-                                'seq': seq
+                                'seq': seq + 1
                                 },
                                partition=0
                                ).get(timeout=1)

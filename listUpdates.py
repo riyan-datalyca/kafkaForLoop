@@ -35,7 +35,7 @@ def getMaxSeq(query):
                 maxSeq = maxSeq < int(data.seq) and int(data.seq) or maxSeq
         return maxSeq
     else:
-        return 1
+        return 0
 
 
 def incrementMaxSeq(query):
@@ -48,11 +48,9 @@ def incrementMaxSeq(query):
 
 
 def isActiveRecording(query):
-    maxSeq = 0
     for data in myList:
         if data.status == 'BegRec' and data.seq == query:
-            maxSeq = maxSeq < int(data.seq) and int(data.seq) or maxSeq
-            if data.status == 'EndRec' and data.seq == maxSeq:
+            if data.status == 'EndRec' and data.seq == query:
                 return False
             else:
                 return True

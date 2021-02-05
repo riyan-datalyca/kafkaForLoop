@@ -13,8 +13,13 @@ kc = KafkaConsumer(
     value_deserializer=lambda m: json.loads(m.decode('ascii'))
 )
 
-for msg in kc:
-    print(msg.value)
+for data in kc:
+    msg = data.value['msg']
+    seq = data.value['seq']
+    print(data.value)
+    # if msg == 'IniRec':
+    #     P.send('BegRec')
+
 
 
 
